@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from "react";
+import { BrowserRouter,Router,Route, Routes, } from "react-router-dom";
+import TodoList from "./components/TodoList";
+import LoginForm from "./components/LoginForm";
+import UserList from "./components/UserList";
 
-function App() {
+
+const App:React.FC=()=>{
+const [username,setUserName]=useState<string | null>(null);
+const hadleLogin=(user:string)=>{
+  setUserName(user);
+}
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+            <div className="container">
+                <h1>APP</h1>
+                <Routes>
+                    <Route path="/" element={username ? <TodoList /> : <LoginForm onLogin={hadleLogin} />} />
+                    <Route path="users" element={<UserList />} />
+                </Routes>
+            </div>
+        </BrowserRouter>
+  )
 }
 
 export default App;
